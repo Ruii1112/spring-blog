@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>blog</title>
+</head>
+<body>
+<h1>blog</h1>
+<form th:action="@{/post/store}" method="post" th:object="${postForm}">
+    <h2>タイトル</h2>
+    <div th:errors="*{title}" style="color: red;">エラー</div>
+    <input type="text" name="title" placeholder="タイトル" th:field="*{title}"><br>
+    <h2>本文</h2>
+    <div th:errors="*{body}" style="color: red;">エラー</div>
+    <textarea name="body" placeholder="本文" th:field="*{body}"></textarea><br>
+    <button>作成</button>
+</form>
+</body>
+</html>

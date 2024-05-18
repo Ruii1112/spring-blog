@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>blog</h1>
+<a th:href="@{/post/create}">[新規作成]</a>
 <span th:each="post: ${posts}">
     <h2><a th:href="@{/post/show?id=} + ${post.id}" th:text="${post.title}">dummy</a></h2>
     <p th:text="${post.body}">dummy</p>
