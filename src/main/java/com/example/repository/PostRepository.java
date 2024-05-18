@@ -77,7 +77,7 @@ public class PostRepository {
             template.update(insertSql, param, keyHolder, keyColumnNames);
             post.setId(keyHolder.getKey().intValue());
         }else {
-            String updateSql = "UPDATE posts SET title=:title, body=:body, updated_at=:updatedAt;";
+            String updateSql = "UPDATE posts SET title=:title, body=:body, updated_at=:updatedAt WHERE id=:id;";
             template.update(updateSql, param);
         }
         return post;
