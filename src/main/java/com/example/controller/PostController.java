@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -58,6 +59,7 @@ public class PostController {
     /**
      * post作成画面の表示
      *
+     * @param form postのフォーム
      * @return create.html
      */
     @GetMapping("/create")
@@ -84,6 +86,45 @@ public class PostController {
         post = service.create(post);
 
         return "redirect:/post/show?id=" + post.getId();
+    }
 
+    /**
+     * post編集画面の表示.
+     *
+     * @param id 編集したいpostのid
+     * @param model post情報を格納するmodel
+     * @param form postのform
+     * @return edit.html
+     */
+    @GetMapping("/edit")
+    public String edit(Integer id, Model model, PostForm form){
+        Post post = service.load(id);
+        form.setTitle(post.getTitle());
+        form.setBody(post.getBody());
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    /**
+     * postの更新処理
+     * @param id 更新するpostのid
+     * @param form postのform
+     * @param result バリデーション結果
+     * @param model editメソッドに渡す用のmodel
+     * @return 更新したpostのshow.html
+     */
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable("id") Integer id, @Validated PostForm form, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return edit(id, model, form);
+        }
+
+        Post post = service.load(id);
+        post.setTitle(form.getTitle());
+        post.setBody(form.getBody());
+        post.setUpdatedAt(LocalDateTime.now());
+        post = service.update(post);
+
+        return "redirect:/post/show?id=" + post.getId();
     }
 }
