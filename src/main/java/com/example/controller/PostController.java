@@ -28,4 +28,11 @@ public class PostController {
         model.addAttribute("posts", postList);
         return "posts/index";
     }
+
+    @GetMapping("/show")
+    public String show(Model model, Integer id){
+        Post post = service.load(id);
+        model.addAttribute("post", post);
+        return "posts/show";
+    }
 }

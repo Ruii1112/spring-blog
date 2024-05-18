@@ -6,9 +6,8 @@
 </head>
 <body>
 <h1>blog</h1>
-<span th:each="post: ${posts}">
-    <h2><a th:href="@{/post/show?id=} + ${post.id}" th:text="${post.title}">dummy</a></h2>
-    <p th:text="${post.body}">dummy</p>
-</span>
+<h2 th:text="${post.title}">dummy</h2>
+<p th:text="${post.body}">dummy</p>
+<a th:href="@{/post}">戻る</a>
 </body>
 </html>

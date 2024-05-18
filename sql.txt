@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS posts;
+
+CREATE TABLE posts(
+	id serial primary key,
+	title text not null,
+	body text not null,
+	created_at timestamp,
+	updated_at timestamp,
+	deleted_at timestamp
+);
+
+INSERT INTO posts(title, body, created_at, updated_at) VALUES('title1', 'body1', now(), now());
+INSERT INTO posts(title, body, created_at, updated_at) VALUES('title2', 'body2', now(), now());
