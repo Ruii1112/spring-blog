@@ -49,8 +49,8 @@ public class PostController {
      * @param id 詳細画面を表示するpostのid
      * @return show.html
      */
-    @GetMapping("/show")
-    public String show(Model model, Integer id){
+    @GetMapping("/show/{id}")
+    public String show(Model model, @PathVariable Integer id){
         Post post = service.load(id);
         model.addAttribute("post", post);
         return "posts/show";
@@ -85,7 +85,7 @@ public class PostController {
         post.setUpdatedAt(LocalDateTime.now());
         post = service.create(post);
 
-        return "redirect:/post/show?id=" + post.getId();
+        return "redirect:/post/show/" + post.getId();
     }
 
     /**
@@ -96,8 +96,8 @@ public class PostController {
      * @param form postのform
      * @return edit.html
      */
-    @GetMapping("/edit")
-    public String edit(Integer id, Model model, PostForm form){
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model, PostForm form){
         Post post = service.load(id);
         form.setTitle(post.getTitle());
         form.setBody(post.getBody());
@@ -125,6 +125,14 @@ public class PostController {
         post.setUpdatedAt(LocalDateTime.now());
         post = service.update(post);
 
-        return "redirect:/post/show?id=" + post.getId();
+        return "redirect:/post/show/" + post.getId();
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id){
+        Post post = service.load(id);
+        post.setDeletedAt(LocalDateTime.now());
+        service.delete(post);
+        return "redirect:/post";
     }
 }

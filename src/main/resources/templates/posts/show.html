@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>blog</h1>
-<a th:href="@{/post/edit?id=} + ${post.id}">[編集]</a>
+<a th:href="@{/post/edit/{id}(id=${post.id})}">[編集]</a>
 <h2 th:text="${post.title}">dummy</h2>
 <p th:text="${post.body}">dummy</p>
 <a th:href="@{/post}">戻る</a>

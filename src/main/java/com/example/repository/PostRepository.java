@@ -56,7 +56,7 @@ public class PostRepository {
      * @return postsの全情報
      */
     public List<Post> findAll(){
-        String sql = "SELECT id, title, body, created_at, updated_at, deleted_at FROM posts;";
+        String sql = "SELECT id, title, body, created_at, updated_at, deleted_at FROM posts WHERE deleted_at IS null;";
         List<Post> postList = template.query(sql, POST_ROW_MAPPER);
         return postList;
     }
@@ -81,5 +81,16 @@ public class PostRepository {
             template.update(updateSql, param);
         }
         return post;
+    }
+
+    /**
+     * idに基づく論理削除
+     *
+     * @param post 論理削除するpostのid
+     */
+    public void delete(Post post){
+        SqlParameterSource param = new BeanPropertySqlParameterSource(post);
+        String sql = "UPDATE posts SET deleted_at=:deletedAt WHERE id=:id;";
+        template.update(sql, param);
     }
 }

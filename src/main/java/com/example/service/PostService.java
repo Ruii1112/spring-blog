@@ -35,4 +35,8 @@ public class PostService {
     public Post update(Post post){
         return repository.save(post);
     }
+
+    public void delete(Post post){
+        repository.delete(post);
+    }
 }

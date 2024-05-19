@@ -13,7 +13,8 @@
     <h2>本文</h2>
     <div th:errors="*{body}" style="color: red;">エラー</div>
     <textarea name="body" placeholder="本文" th:field="*{body}"></textarea><br>
-    <button>作成</button>
+    <button>投稿</button>
 </form>
+<a th:href="@{/post}">戻る</a>
 </body>
 </html>
