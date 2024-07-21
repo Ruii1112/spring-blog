@@ -8,12 +8,12 @@
 <h1>blog</h1>
 <a th:href="@{/post/create}">[新規作成]</a>
 <div th:each="post: ${posts}">
-    <h2><a th:href="@{/post/show/{id}(id=${post.id})}" th:text="${post.title}">dummy</a></h2>
+    <h2><a th:href="@{/show/{id}(id=${post.id})}" th:text="${post.title}">dummy</a></h2>
     <p th:text="${post.body}">dummy</p>
-    <form th:action="@{/post/delete/{id}(id=${post.id})}" method="post" th:id="deleteForm_ + ${post.id}">
+    <form th:action="@{/delete/{id}(id=${post.id})}" method="post" th:id="deleteForm_ + ${post.id}">
         <button type="button" class="deleteBtn" th:data-id="${post.id}">削除</button>
     </form>
 </div>
-<script src="/js/index.js"></script>
+<script th:src="@{/js/index.js}"></script>
 </body>
 </html>

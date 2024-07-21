@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>blog</h1>
-<form th:action="@{/post/update/{id}(id=${post.id})}" method="post" th:object="${postForm}">
+<form th:action="@{/update/{id}(id=${post.id})}" method="post" th:object="${postForm}">
     <h2>タイトル</h2>
     <div th:errors="*{title}" style="color: red;">エラー</div>
     <input type="text" name="title" th:field="*{title}"><br>
@@ -15,6 +15,6 @@
     <textarea name="body" placeholder="本文" th:field="*{body}"></textarea><br>
     <button>投稿</button>
 </form>
-<a th:href="@{/post}">戻る</a>
+<a th:href="@{/}">戻る</a>
 </body>
 </html>
