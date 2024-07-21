@@ -23,7 +23,7 @@ import java.util.List;
  * @author inoue
  */
 @Controller
-@RequestMapping("/post")
+@RequestMapping()
 public class PostController {
 
     @Autowired
@@ -62,7 +62,7 @@ public class PostController {
      * @param form postのフォーム
      * @return create.html
      */
-    @GetMapping("/create")
+    @GetMapping("/post/create")
     public String create(PostForm form){
         return "posts/create";
     }
@@ -72,7 +72,7 @@ public class PostController {
      *
      * @return 作成したpostの詳細画面へリダイレクト
      */
-    @PostMapping("/store")
+    @PostMapping("/post/store")
     public String store(@Validated PostForm form, BindingResult result){
         if(result.hasErrors()){
             return create(form);
@@ -85,7 +85,7 @@ public class PostController {
         post.setUpdatedAt(LocalDateTime.now());
         post = service.create(post);
 
-        return "redirect:/post/show/" + post.getId();
+        return "redirect:/show/" + post.getId();
     }
 
     /**
@@ -125,14 +125,20 @@ public class PostController {
         post.setUpdatedAt(LocalDateTime.now());
         post = service.update(post);
 
-        return "redirect:/post/show/" + post.getId();
+        return "redirect:/show/" + post.getId();
     }
 
+    /**
+     * postの削除処理.
+     *
+     * @param id 削除するpostのid
+     * @return 一覧画面へリダイレクト
+     */
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
         Post post = service.load(id);
         post.setDeletedAt(LocalDateTime.now());
         service.delete(post);
-        return "redirect:/post";
+        return "redirect:/";
     }
 }
